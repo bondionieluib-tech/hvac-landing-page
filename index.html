@@ -10,8 +10,8 @@
 <style>
   /* ============ Tokens ============ */
   :root{
-    --bg: #EEF1EC;
-    --bg-alt: #E4E9E2;
+    --bg: #FFFFFF;
+    --bg-alt: #F3F5F2;
     --surface: #FFFFFF;
     --ink: #263238;
     --ink-soft: #5B6660;
@@ -149,6 +149,21 @@
   }
   .nav-links a:hover{ color: var(--ink); }
   .nav-cta{ display:flex; align-items:center; gap:16px; }
+  .theme-toggle{
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 1rem;
+    cursor:pointer;
+    line-height:1;
+    padding:0;
+  }
+  .theme-toggle:hover{ border-color: var(--primary-soft); }
   .nav-toggle{ display:none; }
   .nav-toggle-label{ display:none; cursor:pointer; }
 
@@ -446,6 +461,18 @@
     font-size: .92rem;
   }
 
+  .form-status{
+    margin-top: 14px;
+    font-size: .86rem;
+    color: var(--primary);
+    min-height: 1.2em;
+    opacity: 0;
+    transform: translateY(-2px);
+    transition: opacity .2s ease, transform .2s ease;
+  }
+  .form-status.is-visible{ opacity: 1; transform: translateY(0); }
+  .form-status.is-error{ color: #B14A3F; }
+
   /* ============ Footer ============ */
   footer{
     padding: 40px 0;
@@ -499,7 +526,7 @@
     </label>
 
     <ul class="nav-links">
-      <li><a href="#services">Services</a></li>
+      <li><a href="services.html">Services</a></li>
       <li><a href="#pricing">Pricing</a></li>
       <li><a href="#testimonials">Testimonials</a></li>
       <li><a href="#faq">FAQs</a></li>
@@ -507,6 +534,7 @@
     </ul>
 
     <div class="nav-cta">
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark theme">🌙</button>
       <a href="#contact" class="btn btn-ghost">Get a quote</a>
     </div>
   </nav>
@@ -579,16 +607,14 @@
           <a href="#">Learn more &rarr;</a>
         </div>
 
-        <!--
-          Add remaining services the same way — copy one .service-card block:
-          pipe cleaning, duct cleaning, inspections, water/heater services,
-          vent cleaning, smart home integrations, HVAC-as-a-Service.
-        -->
+        <!-- Full catalogue (pipe cleaning, duct cleaning, inspections, water/heater
+             services, vent cleaning, smart home integrations, HVAC-aaS) lives
+             on services.html — linked via "View all services" below. -->
 
       </div>
 
       <div class="service-more">
-        <a href="#" class="btn btn-ghost">View all services</a>
+        <a href="services.html" class="btn btn-ghost">View all services</a>
       </div>
     </div>
   </section>
@@ -739,26 +765,27 @@
       </div>
 
       <div class="contact-grid">
-        <form class="contact-form">
+        <form class="contact-form" id="contact-form" novalidate>
           <div class="two-col">
             <div class="form-row">
               <label for="name">Full name</label>
-              <input type="text" id="name" placeholder="Jane Dela Cruz">
+              <input type="text" id="name" name="name" placeholder="Jane Dela Cruz" required>
             </div>
             <div class="form-row">
               <label for="phone">Phone number</label>
-              <input type="tel" id="phone" placeholder="+63 900 000 0000">
+              <input type="tel" id="phone" name="phone" placeholder="+63 900 000 0000">
             </div>
           </div>
           <div class="form-row">
             <label for="email">Email address</label>
-            <input type="email" id="email" placeholder="jane@email.com">
+            <input type="email" id="email" name="email" placeholder="jane@email.com" required>
           </div>
           <div class="form-row">
             <label for="message">Message</label>
-            <textarea id="message" placeholder="Lorem ipsum dolor sit amet..."></textarea>
+            <textarea id="message" name="message" placeholder="Lorem ipsum dolor sit amet..." required></textarea>
           </div>
-          <button type="button" class="btn btn-primary">Send message</button>
+          <button type="submit" class="btn btn-primary">Send message</button>
+          <p class="form-status" id="contact-form-status" role="status" aria-live="polite"></p>
         </form>
 
         <div class="company-info">
@@ -785,10 +812,11 @@
           <div class="subscribe">
             <h3 style="font-size:1rem;">Stay updated</h3>
             <p style="font-size:.88rem;">Lorem ipsum dolor sit amet, seasonal tips and offers.</p>
-            <div class="subscribe-row">
-              <input type="email" placeholder="you@email.com">
-              <button type="button" class="btn btn-primary">Subscribe</button>
-            </div>
+            <form class="subscribe-row" id="subscribe-form" novalidate>
+              <input type="email" id="subscribe-email" name="subscribe-email" placeholder="you@email.com" required>
+              <button type="submit" class="btn btn-primary">Subscribe</button>
+            </form>
+            <p class="form-status" id="subscribe-form-status" role="status" aria-live="polite"></p>
           </div>
         </div>
       </div>
@@ -797,12 +825,74 @@
 
 </main>
 <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+<style>
+  /* Chat widget theming: neutral white surface, clearer text contrast, smaller window */
+  :root{
+    --chat--color-primary: #35594F;
+    --chat--color-primary-shade-50: #2C4B42;
+    --chat--color-primary-shade-100: #233B35;
+    --chat--color-secondary: #B9722E;
+    --chat--color-secondary-shade-50: #A2611F;
+    --chat--color-white: #FFFFFF;
+    --chat--color-light: #FFFFFF;
+    --chat--color-light-shade-50: #F3F5F2;
+    --chat--color-light-shade-100: #E4E9E2;
+    --chat--color-medium: #C9D2C6;
+    --chat--color-dark: #263238;
+    --chat--color-disabled: #9AA39C;
+    --chat--color-typing: #5B6660;
+
+    --chat--spacing: 1rem;
+    --chat--border-radius: 10px;
+
+    --chat--window--width: 360px;
+    --chat--window--height: 520px;
+
+    --chat--header--background: var(--chat--color-primary);
+    --chat--header--color: #FFFFFF;
+    --chat--heading--font-size: 1.1rem;
+    --chat--subtitle--font-size: .85rem;
+    --chat--subtitle--line-height: 1.4;
+
+    --chat--textarea--height: 46px;
+
+    --chat--message--font-size: .93rem;
+    --chat--message-line-height: 1.5;
+    --chat--message--border-radius: 10px;
+    --chat--message--padding: .65rem .85rem;
+
+    /* Bot bubble: light neutral background, dark readable text */
+    --chat--message--bot--background: #F3F5F2;
+    --chat--message--bot--color: #263238;
+    --chat--message--bot--border: 1px solid #E4E9E2;
+
+    /* User bubble: brand teal, white text */
+    --chat--message--user--background: #35594F;
+    --chat--message--user--color: #FFFFFF;
+    --chat--message--user--border: none;
+
+    --chat--toggle--background: #35594F;
+    --chat--toggle--hover--background: #2C4B42;
+    --chat--toggle--color: #FFFFFF;
+    --chat--toggle--size: 56px;
+  }
+</style>
 <script type="module">
   import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
 
   createChat({
     webhookUrl: 'https://n8n.naivegeek.xyz/webhook/ccdad245-6a06-49a0-a7f0-44d0107c2f3f/chat',
-    enableStreaming: true
+    enableStreaming: true,
+    i18n: {
+      en: {
+        title: 'Chat with ClimaCore',
+        subtitle: 'Ask about services, pricing, or booking a visit.',
+        footer: '',
+        getStarted: 'Start chat',
+        inputPlaceholder: 'Type your question...',
+        closeButtonTooltip: 'Close chat'
+      }
+    }
   });
 </script>
 <footer>
@@ -824,6 +914,138 @@
     <span class="footer-fine">&copy; 2026 ClimaCore Systems (mock)</span>
   </div>
 </footer>
+
+<script>
+(function(){
+  /* ---------- Theme toggle (light / dark) ---------- */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('theme-toggle');
+  var storedTheme = null;
+  try { storedTheme = localStorage.getItem('climacore_theme'); } catch (e) { /* storage unavailable */ }
+
+  function applyTheme(theme){
+    root.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
+    if (themeBtn){
+      themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+      themeBtn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+    }
+  }
+
+  applyTheme(storedTheme === 'dark' ? 'dark' : 'light');
+
+  if (themeBtn){
+    themeBtn.addEventListener('click', function(){
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      try { localStorage.setItem('climacore_theme', next); } catch (e) { /* storage unavailable */ }
+    });
+  }
+
+  /* ---------- Shared helpers for form handling ---------- */
+  function readList(key){
+    try { return JSON.parse(localStorage.getItem(key)) || []; }
+    catch (e) { return []; }
+  }
+  function writeList(key, list){
+    try { localStorage.setItem(key, JSON.stringify(list)); }
+    catch (e) { /* storage unavailable */ }
+  }
+  function setStatus(el, message, isError){
+    if (!el) return;
+    el.textContent = message;
+    el.classList.toggle('is-error', !!isError);
+    el.classList.add('is-visible');
+  }
+
+  /* ---------- Contact form submission ---------- */
+  var contactForm = document.getElementById('contact-form');
+  if (contactForm){
+    contactForm.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      var nameEl = document.getElementById('name');
+      var phoneEl = document.getElementById('phone');
+      var emailEl = document.getElementById('email');
+      var messageEl = document.getElementById('message');
+      var statusEl = document.getElementById('contact-form-status');
+
+      var name = nameEl.value.trim();
+      var phone = phoneEl.value.trim();
+      var email = emailEl.value.trim();
+      var message = messageEl.value.trim();
+
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!name || !email || !message){
+        setStatus(statusEl, 'Please fill in your name, email, and message.', true);
+        return;
+      }
+      if (!emailPattern.test(email)){
+        setStatus(statusEl, 'Please enter a valid email address.', true);
+        return;
+      }
+
+      var entry = {
+        id: Date.now(),
+        submittedAt: new Date().toISOString(),
+        name: name,
+        phone: phone,
+        email: email,
+        message: message
+      };
+
+      var submissions = readList('climacore_contact_submissions');
+      submissions.push(entry);
+      writeList('climacore_contact_submissions', submissions);
+
+      // Organized log for now — swap this for a real backend/webhook call later.
+      console.log('New contact submission:', entry);
+      console.table(submissions);
+
+      setStatus(statusEl, 'Thanks, ' + name.split(' ')[0] + ' — we\u2019ll be in touch shortly.', false);
+      contactForm.reset();
+    });
+  }
+
+  /* ---------- Email subscribe submission ---------- */
+  var subscribeForm = document.getElementById('subscribe-form');
+  if (subscribeForm){
+    subscribeForm.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      var emailEl = document.getElementById('subscribe-email');
+      var statusEl = document.getElementById('subscribe-form-status');
+      var email = emailEl.value.trim();
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailPattern.test(email)){
+        setStatus(statusEl, 'Please enter a valid email address.', true);
+        return;
+      }
+
+      var subscribers = readList('climacore_subscribers');
+      var alreadySubscribed = subscribers.some(function(s){
+        return s.email.toLowerCase() === email.toLowerCase();
+      });
+
+      if (alreadySubscribed){
+        setStatus(statusEl, 'You\u2019re already subscribed.', false);
+        subscribeForm.reset();
+        return;
+      }
+
+      subscribers.push({ email: email, subscribedAt: new Date().toISOString() });
+      writeList('climacore_subscribers', subscribers);
+
+      console.log('New subscriber:', email);
+      console.table(subscribers);
+
+      setStatus(statusEl, 'You\u2019re subscribed \u2014 thanks!', false);
+      subscribeForm.reset();
+    });
+  }
+})();
+</script>
 
 </body>
 </html>
