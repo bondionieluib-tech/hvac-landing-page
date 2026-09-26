@@ -994,16 +994,19 @@
         message: message
       };
 
-      var submissions = readList('climacore_contact_submissions');
-      submissions.push(entry);
-      writeList('climacore_contact_submissions', submissions);
-
-      // Organized log for now — swap this for a real backend/webhook call later.
-      console.log('New contact submission:', entry);
-      console.table(submissions);
-
-      setStatus(statusEl, 'Thanks, ' + name.split(' ')[0] + ' — we\u2019ll be in touch shortly.', false);
-      contactForm.reset();
+      fetch('https://n8n.naivegeek.xyz/webhook-test/form-submission', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(entry)
+        })
+          .then(function(res){
+            if (!res.ok) throw new Error('Request failed');
+            setStatus(statusEl, 'Thanks, ' + name.split(' ')[0] + ' — we\u2019ll be in touch shortly.', false);
+            contactForm.reset();
+          })
+        .catch(function(){
+          setStatus(statusEl, 'Something went wrong sending your message. Please try again.', true);
+        });
     });
   }
 
