@@ -242,6 +242,11 @@
     min-height: 100px;
   }
 
+  /* ============ About ============ */
+  .about-grid{ display:grid; grid-template-columns:1.2fr .8fr; gap:48px; align-items:start; }
+  .about-copy p{ font-size:.96rem; }
+  .about-card{ background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-md); padding:28px; box-shadow:var(--shadow); }
+
   /* ============ Services ============ */
   .services{ background: var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
   .service-grid{
@@ -485,7 +490,7 @@
     flex-wrap:wrap;
     gap: 16px;
   }
-  .footer-links{ display:flex; gap:22px; list-style:none; margin:0; padding:0; }
+  .footer-links{ display:flex; gap:22px; list-style:none; margin:0; padding:0; flex-wrap:wrap; }
   .footer-links a{ font-size: .85rem; color: var(--ink-soft); text-decoration:none; }
   .footer-fine{ font-size: .8rem; color: var(--ink-soft); }
 
@@ -493,6 +498,7 @@
   @media (max-width: 900px){
     .hero .container{ grid-template-columns: 1fr; }
     .hero-art{ order:-1; }
+    .about-grid{ grid-template-columns: 1fr; }
     .service-grid{ grid-template-columns: 1fr; }
     .pricing-grid{ grid-template-columns: 1fr; }
     .testi-grid{ grid-template-columns: 1fr; }
@@ -526,9 +532,10 @@
     </label>
 
     <ul class="nav-links">
+      <li><a href="#about">About</a></li>
       <li><a href="services.html">Services</a></li>
       <li><a href="#pricing">Pricing</a></li>
-      <li><a href="#testimonials">Testimonials</a></li>
+      <li><a href="booking.html">Booking</a></li>
       <li><a href="#faq">FAQs</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -550,8 +557,8 @@
         <h1>Lorem ipsum dolor sit amet, comfort that runs quietly year‑round.</h1>
         <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, keeping your space at the right temperature.</p>
         <div class="hero-actions">
-          <a href="#contact" class="btn btn-primary">Book a service</a>
-          <a href="#services" class="btn btn-ghost">See services</a>
+          <a href="booking.html" class="btn btn-primary">Book a service</a>
+          <a href="services.html" class="btn btn-ghost">See services</a>
         </div>
         <div class="hero-stats">
           <div><strong>12+</strong><span>Years in service</span></div>
@@ -563,6 +570,26 @@
         <div class="img-placeholder" style="min-height:340px;">
           Hero image placeholder<br>(e.g. technician / system photo)
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container about-grid">
+      <div class="about-copy">
+        <span class="eyebrow">About us</span>
+        <h2>Built by people who'd rather fix it right the first time</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. ClimaCore Systems started as a two-person repair crew and grew into a full-service HVAC company, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+      </div>
+      <div class="about-card">
+        <div class="img-placeholder" style="min-height:140px; border-radius:50%; width:140px; margin:0 auto 20px;">
+          Photo
+        </div>
+        <h3 style="text-align:center; margin-bottom:.1em;">Alex Marquez</h3>
+        <p style="text-align:center; font-size:.86rem; margin-bottom:16px;">Founder &amp; CEO, ClimaCore Systems</p>
+        <p style="font-size:.88rem;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Started out as a field technician, then founded ClimaCore after one too many callbacks from other companies' rushed installs — sed do eiusmod tempor incididunt.</p>
       </div>
     </div>
   </section>
@@ -585,7 +612,7 @@
           </svg>
           <h3>Installation</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
-          <a href="#">Learn more &rarr;</a>
+          <a href="services.html">Learn more &rarr;</a>
         </div>
 
         <div class="service-card">
@@ -594,7 +621,7 @@
           </svg>
           <h3>Repair</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
-          <a href="#">Learn more &rarr;</a>
+          <a href="services.html">Learn more &rarr;</a>
         </div>
 
         <div class="service-card">
@@ -604,7 +631,7 @@
           </svg>
           <h3>Maintenance of cooling &amp; heating systems</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
-          <a href="#">Learn more &rarr;</a>
+          <a href="services.html">Learn more &rarr;</a>
         </div>
 
         <!-- Full catalogue (pipe cleaning, duct cleaning, inspections, water/heater
@@ -906,8 +933,10 @@
       <span class="brand-name" style="font-size:.95rem;">ClimaCore Systems</span>
     </a>
     <ul class="footer-links">
+      <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#pricing">Pricing</a></li>
+      <li><a href="booking.html">Booking</a></li>
       <li><a href="#faq">FAQs</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
@@ -957,6 +986,32 @@
     el.classList.add('is-visible');
   }
 
+  /* ---------- FAQ accordion ---------- */
+  var faqItems = document.querySelectorAll('.faq-item');
+  faqItems.forEach(function(item){
+    var question = item.querySelector('.faq-q');
+    var icon = item.querySelector('.faq-icon');
+    if (!question) return;
+
+    question.setAttribute('role', 'button');
+    question.setAttribute('tabindex', '0');
+    question.setAttribute('aria-expanded', item.classList.contains('is-open') ? 'true' : 'false');
+
+    function toggle(){
+      var isOpen = item.classList.toggle('is-open');
+      question.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      if (icon) icon.textContent = isOpen ? '\u2212' : '+';
+    }
+
+    question.addEventListener('click', toggle);
+    question.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        toggle();
+      }
+    });
+  });
+
   /* ---------- Contact form submission ---------- */
   var contactForm = document.getElementById('contact-form');
   if (contactForm){
@@ -994,19 +1049,16 @@
         message: message
       };
 
-      fetch('https://n8n.naivegeek.xyz/webhook-test/form-submission', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(entry)
-        })
-          .then(function(res){
-            if (!res.ok) throw new Error('Request failed');
-            setStatus(statusEl, 'Thanks, ' + name.split(' ')[0] + ' — we\u2019ll be in touch shortly.', false);
-            contactForm.reset();
-          })
-        .catch(function(){
-          setStatus(statusEl, 'Something went wrong sending your message. Please try again.', true);
-        });
+      var submissions = readList('climacore_contact_submissions');
+      submissions.push(entry);
+      writeList('climacore_contact_submissions', submissions);
+
+      // Organized log for now — swap this for a real backend/webhook call later.
+      console.log('New contact submission:', entry);
+      console.table(submissions);
+
+      setStatus(statusEl, 'Thanks, ' + name.split(' ')[0] + ' — we\u2019ll be in touch shortly.', false);
+      contactForm.reset();
     });
   }
 
