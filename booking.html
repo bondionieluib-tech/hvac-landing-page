@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Service — ClimaCore Systems</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF; --bg-alt:#F3F5F2; --surface:#FFFFFF;
+    --ink:#263238; --ink-soft:#5B6660;
+    --primary:#35594F; --primary-soft:#4A7267;
+    --accent:#B9722E; --accent-soft:#D9A46C;
+    --line:#C9D2C6; --shadow:0 1px 2px rgba(38,50,56,.06);
+    --radius-sm:4px; --radius-md:8px;
+    --font-head:'Space Grotesk','Segoe UI',sans-serif;
+    --font-body:'IBM Plex Sans','Segoe UI',sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#1B211E; --bg-alt:#222923; --surface:#262E29;
+      --ink:#E7ECE7; --ink-soft:#A9B3AC;
+      --primary:#86BFB0; --primary-soft:#6FA697;
+      --accent:#E0A063; --accent-soft:#C9793D;
+      --line:#3A443E; --shadow:0 1px 2px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#1B211E; --bg-alt:#222923; --surface:#262E29;
+    --ink:#E7ECE7; --ink-soft:#A9B3AC;
+    --primary:#86BFB0; --primary-soft:#6FA697;
+    --accent:#E0A063; --accent-soft:#C9793D;
+    --line:#3A443E; --shadow:0 1px 2px rgba(0,0,0,.35);
+  }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:var(--font-body); line-height:1.55; -webkit-font-smoothing:antialiased; }
+  img,svg{ max-width:100%; display:block; }
+  a{ color:inherit; }
+  .container{ max-width:1120px; margin:0 auto; padding:0 24px; }
+  section{ padding:80px 0; }
+  h1,h2,h3,h4{ font-family:var(--font-head); color:var(--ink); margin:0 0 .5em 0; line-height:1.15; font-weight:600; }
+  p{ color:var(--ink-soft); margin:0 0 1em 0; max-width:62ch; }
+  .eyebrow{ display:inline-block; font-family:var(--font-head); font-size:.8rem; color:var(--primary-soft); margin-bottom:14px; }
+  .section-head{ margin-bottom:36px; max-width:680px; }
+
+  .btn{ display:inline-flex; align-items:center; gap:8px; padding:13px 22px; border-radius:var(--radius-sm); font-family:var(--font-head); font-weight:600; font-size:.95rem; text-decoration:none; border:1px solid transparent; cursor:pointer; }
+  .btn-primary{ background:var(--primary); color:#FBFDFB; }
+  .btn-primary:hover{ background:var(--primary-soft); }
+  .btn-ghost{ background:transparent; border-color:var(--line); color:var(--ink); }
+  .btn-ghost:hover{ border-color:var(--primary-soft); }
+
+  header{ position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter:blur(8px); border-bottom:1px solid var(--line); }
+  .nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 24px; max-width:1120px; margin:0 auto; }
+  .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; }
+  .brand-mark{ width:34px; height:34px; flex-shrink:0; }
+  .brand-name{ font-family:var(--font-head); font-weight:700; font-size:1.05rem; color:var(--ink); }
+  .nav-links{ display:flex; gap:28px; list-style:none; margin:0; padding:0; }
+  .nav-links a{ text-decoration:none; font-size:.93rem; color:var(--ink-soft); }
+  .nav-links a.is-active{ color:var(--ink); }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-cta{ display:flex; align-items:center; gap:16px; }
+  .theme-toggle{ width:38px; height:38px; border-radius:50%; border:1px solid var(--line); background:var(--surface); display:flex; align-items:center; justify-content:center; font-size:1rem; cursor:pointer; padding:0; }
+  .theme-toggle:hover{ border-color:var(--primary-soft); }
+  .nav-toggle{ display:none; }
+  .nav-toggle-label{ display:none; cursor:pointer; }
+  @media (max-width:900px){
+    .nav-links{ position:absolute; top:100%; left:0; right:0; background:var(--surface); border-bottom:1px solid var(--line); flex-direction:column; gap:0; max-height:0; overflow:hidden; transition:max-height .25s ease; }
+    .nav-links li{ border-top:1px solid var(--line); }
+    .nav-links a{ display:block; padding:14px 24px; }
+    .nav-toggle:checked ~ .nav-links{ max-height:480px; }
+    .nav-toggle-label{ display:flex; flex-direction:column; gap:5px; padding:6px; }
+    .nav-toggle-label span{ width:22px; height:2px; background:var(--ink); }
+    .nav-cta .btn-ghost{ display:none; }
+  }
+
+  .page-hero{ padding:64px 0 8px; }
+  .page-hero p.lede{ font-size:1.05rem; }
+
+  .booking-grid{ display:grid; grid-template-columns:1.1fr .9fr; gap:48px; }
+  .booking-form{ background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-md); padding:32px; }
+  .form-row{ margin-bottom:18px; }
+  .form-row label{ display:block; font-size:.82rem; font-family:var(--font-head); color:var(--ink-soft); margin-bottom:6px; }
+  .form-row input, .form-row select, .form-row textarea{
+    width:100%; padding:11px 13px; border:1px solid var(--line); border-radius:var(--radius-sm);
+    background:var(--bg); color:var(--ink); font-family:var(--font-body); font-size:.93rem;
+  }
+  .form-row select{ appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%235B6660' stroke-width='1.5' fill='none' fill-rule='evenodd'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 14px center; padding-right:36px; }
+  .form-row textarea{ min-height:110px; resize:vertical; }
+  .two-col{ display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  .radio-group{ display:flex; gap:20px; }
+  .radio-option{ display:flex; align-items:center; gap:8px; font-size:.93rem; color:var(--ink); cursor:pointer; }
+  .radio-option input[type="radio"]{ width:auto; accent-color:var(--primary); cursor:pointer; }
+  .form-status{ margin-top:14px; font-size:.86rem; color:var(--primary); min-height:1.2em; opacity:0; transform:translateY(-2px); transition:opacity .2s ease, transform .2s ease; }
+  .form-status.is-visible{ opacity:1; transform:translateY(0); }
+  .form-status.is-error{ color:#B14A3F; }
+
+  .booking-aside h3{ font-size:1.05rem; }
+  .aside-list{ list-style:none; margin:0 0 24px 0; padding:0; }
+  .aside-list li{ display:flex; gap:10px; font-size:.9rem; color:var(--ink-soft); padding:8px 0; border-bottom:1px solid var(--line); }
+  .aside-list li:last-child{ border-bottom:none; }
+  .aside-list li::before{ content:"✓"; color:var(--primary); font-weight:700; flex-shrink:0; }
+  .aside-note{ background:var(--bg-alt); border:1px solid var(--line); border-radius:var(--radius-sm); padding:16px 18px; font-size:.86rem; }
+  .aside-note strong{ color:var(--ink); }
+
+  footer{ padding:40px 0; border-top:1px solid var(--line); }
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
+  .footer-links{ display:flex; gap:22px; list-style:none; margin:0; padding:0; flex-wrap:wrap; }
+  .footer-links a{ font-size:.85rem; color:var(--ink-soft); text-decoration:none; }
+  .footer-fine{ font-size:.8rem; color:var(--ink-soft); }
+
+  @media (max-width:900px){
+    .booking-grid{ grid-template-columns:1fr; }
+    section{ padding:56px 0; }
+    .nav-toggle-label{ display:flex; }
+  }
+  :focus-visible{ outline:2px solid var(--primary); outline-offset:2px; }
+  @media (prefers-reduced-motion:reduce){ *{ scroll-behavior:auto !important; animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body>
+
+<header>
+  <nav class="nav">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="19" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M20 8 V20 L28 24" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="20" cy="20" r="3" fill="var(--primary)"/>
+      </svg>
+      <span class="brand-name">ClimaCore Systems</span>
+    </a>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle menu"><span></span><span></span><span></span></label>
+    <ul class="nav-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+      <li><a href="#top" class="is-active">Booking</a></li>
+      <li><a href="index.html#faq">FAQs</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark theme">🌙</button>
+      <a href="index.html#contact" class="btn btn-ghost">Get a quote</a>
+    </div>
+  </nav>
+</header>
+
+<main id="top">
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">Schedule a visit</span>
+      <h1>Book your appointment</h1>
+      <p class="lede">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fill in the details below and a technician will confirm your slot shortly.</p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container booking-grid">
+      <form class="booking-form" id="booking-form" novalidate>
+        <div class="two-col">
+          <div class="form-row">
+            <label for="b-name">Full name</label>
+            <input type="text" id="b-name" name="name" placeholder="Jane Dela Cruz" required>
+          </div>
+          <div class="form-row">
+            <label for="b-phone">Phone number</label>
+            <input type="tel" id="b-phone" name="phone" placeholder="+63 900 000 0000" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="b-email">Email address</label>
+          <input type="email" id="b-email" name="email" placeholder="jane@email.com" required>
+        </div>
+
+        <div class="two-col">
+          <div class="form-row">
+            <label for="b-date">Date of appointment</label>
+            <input type="date" id="b-date" name="date" required>
+          </div>
+          <div class="form-row">
+            <label for="b-service">Type of service</label>
+            <select id="b-service" name="service" required>
+              <option value="" disabled selected>Select a service</option>
+              <option>Installation</option>
+              <option>Repair</option>
+              <option>Maintenance of Cooling &amp; Heating Systems</option>
+              <option>Pipe Cleaning</option>
+              <option>Duct Cleaning</option>
+              <option>Inspections</option>
+              <option>Water/Heater Services</option>
+              <option>Vent Cleaning</option>
+              <option>Smart Home Integrations</option>
+              <option>HVAC-as-a-Service</option>
+              <option>Other / not sure</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="b-notes">Additional requests</label>
+          <textarea id="b-notes" name="notes" placeholder="Anything specific we should know before the visit? (optional)"></textarea>
+        </div>
+
+        <div class="form-row">
+          <label>Would you like to enroll in our maintenance plan?</label>
+          <div class="radio-group">
+            <label class="radio-option">
+              <input type="radio" name="enroll-plan" value="yes" required>
+              Yes
+            </label>
+            <label class="radio-option">
+              <input type="radio" name="enroll-plan" value="no" required>
+              No
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Request booking</button>
+        <p class="form-status" id="booking-form-status" role="status" aria-live="polite"></p>
+      </form>
+
+      <aside class="booking-aside">
+        <h3>What happens next</h3>
+        <ul class="aside-list">
+          <li>A technician reviews your request within one business day</li>
+          <li>You'll get a call or email to confirm the exact time window</li>
+          <li>No payment is required to book — only after the visit</li>
+        </ul>
+        <div class="aside-note">
+          <strong>Note:</strong> This is a mock booking form for a demo landing page — no real appointments are scheduled yet.
+        </div>
+      </aside>
+    </div>
+  </section>
+
+</main>
+
+<link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
+<style>
+  :root{
+    --chat--color-primary:#35594F; --chat--color-primary-shade-50:#2C4B42; --chat--color-primary-shade-100:#233B35;
+    --chat--color-secondary:#B9722E; --chat--color-secondary-shade-50:#A2611F;
+    --chat--color-white:#FFFFFF; --chat--color-light:#FFFFFF; --chat--color-light-shade-50:#F3F5F2; --chat--color-light-shade-100:#E4E9E2;
+    --chat--color-medium:#C9D2C6; --chat--color-dark:#263238; --chat--color-disabled:#9AA39C; --chat--color-typing:#5B6660;
+    --chat--spacing:1rem; --chat--border-radius:10px;
+    --chat--window--width:360px; --chat--window--height:520px;
+    --chat--header--background:var(--chat--color-primary); --chat--header--color:#FFFFFF;
+    --chat--heading--font-size:1.1rem; --chat--subtitle--font-size:.85rem; --chat--subtitle--line-height:1.4;
+    --chat--textarea--height:46px;
+    --chat--message--font-size:.93rem; --chat--message-line-height:1.5; --chat--message--border-radius:10px; --chat--message--padding:.65rem .85rem;
+    --chat--message--bot--background:#F3F5F2; --chat--message--bot--color:#263238; --chat--message--bot--border:1px solid #E4E9E2;
+    --chat--message--user--background:#35594F; --chat--message--user--color:#FFFFFF; --chat--message--user--border:none;
+    --chat--toggle--background:#35594F; --chat--toggle--hover--background:#2C4B42; --chat--toggle--color:#FFFFFF; --chat--toggle--size:56px;
+  }
+</style>
+<script type="module">
+  import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
+  createChat({
+    webhookUrl: 'https://n8n.naivegeek.xyz/webhook/ccdad245-6a06-49a0-a7f0-44d0107c2f3f/chat',
+    enableStreaming: true,
+    i18n: { en: {
+      title: 'Chat with ClimaCore',
+      subtitle: 'Ask about services, pricing, or booking a visit.',
+      footer: '', getStarted: 'Start chat',
+      inputPlaceholder: 'Type your question...', closeButtonTooltip: 'Close chat'
+    }}
+  });
+</script>
+
+<footer>
+  <div class="container footer-row">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark" width="26" height="26" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="19" stroke="var(--primary)" stroke-width="2"/>
+        <path d="M20 8 V20 L28 24" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="20" cy="20" r="3" fill="var(--primary)"/>
+      </svg>
+      <span class="brand-name" style="font-size:.95rem;">ClimaCore Systems</span>
+    </a>
+    <ul class="footer-links">
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="services.html">Services</a></li>
+      <li><a href="index.html#pricing">Pricing</a></li>
+      <li><a href="#top">Booking</a></li>
+      <li><a href="index.html#faq">FAQs</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <span class="footer-fine">&copy; 2026 ClimaCore Systems (mock)</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* Theme toggle */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('theme-toggle');
+  var stored = null;
+  try { stored = localStorage.getItem('climacore_theme'); } catch (e) {}
+  function applyTheme(theme){
+    root.setAttribute('data-theme', theme === 'dark' ? 'dark' : 'light');
+    if (themeBtn){
+      themeBtn.textContent = theme === 'dark' ? '☀️' : '🌙';
+      themeBtn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+    }
+  }
+  applyTheme(stored === 'dark' ? 'dark' : 'light');
+  if (themeBtn){
+    themeBtn.addEventListener('click', function(){
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+      try { localStorage.setItem('climacore_theme', next); } catch (e) {}
+    });
+  }
+
+  /* Prevent picking a past date */
+  var dateInput = document.getElementById('b-date');
+  if (dateInput){
+    var today = new Date().toISOString().split('T')[0];
+    dateInput.setAttribute('min', today);
+  }
+
+  /* Booking form submission */
+  function setStatus(el, message, isError){
+    if (!el) return;
+    el.textContent = message;
+    el.classList.toggle('is-error', !!isError);
+    el.classList.add('is-visible');
+  }
+
+  var bookingForm = document.getElementById('booking-form');
+  if (bookingForm){
+    bookingForm.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      var name = document.getElementById('b-name').value.trim();
+      var phone = document.getElementById('b-phone').value.trim();
+      var email = document.getElementById('b-email').value.trim();
+      var date = document.getElementById('b-date').value;
+      var service = document.getElementById('b-service').value;
+      var notes = document.getElementById('b-notes').value.trim();
+      var enrollRadio = document.querySelector('input[name="enroll-plan"]:checked');
+      var enrollPlan = enrollRadio ? enrollRadio.value : '';
+      var statusEl = document.getElementById('booking-form-status');
+      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!name || !phone || !email || !date || !service || !enrollPlan){
+        setStatus(statusEl, 'Please fill in all required fields.', true);
+        return;
+      }
+      if (!emailPattern.test(email)){
+        setStatus(statusEl, 'Please enter a valid email address.', true);
+        return;
+      }
+
+      var entry = {
+        id: Date.now(),
+        submittedAt: new Date().toISOString(),
+        name: name,
+        phone: phone,
+        email: email,
+        date: date,
+        service: service,
+        notes: notes,
+        enrollPlan: enrollPlan
+      };
+
+      // Swap this URL for your real n8n booking webhook once it's set up.
+      fetch('https://n8n.naivegeek.xyz/webhook-test/booking-form', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(entry)
+      })
+        .then(function(res){
+          if (!res.ok) throw new Error('Request failed');
+          setStatus(statusEl, 'Thanks, ' + name.split(' ')[0] + ' \u2014 your request for ' + date + ' has been received.', false);
+          bookingForm.reset();
+        })
+        .catch(function(){
+          setStatus(statusEl, 'Something went wrong sending your booking. Please try again.', true);
+        });
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
