@@ -94,7 +94,7 @@
 
   footer{ padding:40px 0; border-top:1px solid var(--line); }
   .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; }
-  .footer-links{ display:flex; gap:22px; list-style:none; margin:0; padding:0; }
+  .footer-links{ display:flex; gap:22px; list-style:none; margin:0; padding:0; flex-wrap:wrap; }
   .footer-links a{ font-size:.85rem; color:var(--ink-soft); text-decoration:none; }
   .footer-fine{ font-size:.8rem; color:var(--ink-soft); }
 
@@ -122,9 +122,10 @@
     <input type="checkbox" id="nav-toggle" class="nav-toggle">
     <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle menu"><span></span><span></span><span></span></label>
     <ul class="nav-links">
-      <li><a href="services.html" class="is-active">Services</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="#top" class="is-active">Services</a></li>
       <li><a href="index.html#pricing">Pricing</a></li>
-      <li><a href="index.html#testimonials">Testimonials</a></li>
+      <li><a href="booking.html">Booking</a></li>
       <li><a href="index.html#faq">FAQs</a></li>
       <li><a href="index.html#contact">Contact</a></li>
     </ul>
@@ -195,7 +196,7 @@
           <svg class="service-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3s6 6.5 6 11a6 6 0 1 1-12 0c0-4.5 6-11 6-11z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
           <h3>Water / Heater Services</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
-          <a href="index.html">Request a quote &rarr;</a>
+          <a href="index.html#contact">Request a quote &rarr;</a>
         </div>
 
         <div class="service-card">
@@ -267,7 +268,7 @@
 
 <footer>
   <div class="container footer-row">
-    <a href="#top" class="brand">
+    <a href="index.html" class="brand">
       <svg class="brand-mark" width="26" height="26" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="20" cy="20" r="19" stroke="var(--primary)" stroke-width="2"/>
         <path d="M20 8 V20 L28 24" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -276,8 +277,10 @@
       <span class="brand-name" style="font-size:.95rem;">ClimaCore Systems</span>
     </a>
     <ul class="footer-links">
+      <li><a href="index.html#about">About</a></li>
       <li><a href="#top">Services</a></li>
       <li><a href="index.html#pricing">Pricing</a></li>
+      <li><a href="booking.html">Booking</a></li>
       <li><a href="index.html#faq">FAQs</a></li>
       <li><a href="index.html#contact">Contact</a></li>
     </ul>
