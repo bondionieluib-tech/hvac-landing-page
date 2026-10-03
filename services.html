@@ -105,6 +105,12 @@
   }
   :focus-visible{ outline:2px solid var(--primary); outline-offset:2px; }
   @media (prefers-reduced-motion:reduce){ *{ scroll-behavior:auto !important; animation:none !important; transition:none !important; } }
+
+  .chat-window p {
+    color: inherit;
+    margin: 0;
+    max-width: none;
+  }
 </style>
 </head>
 <body>
@@ -257,6 +263,10 @@
   createChat({
     webhookUrl: 'https://n8n.naivegeek.xyz/webhook/ccdad245-6a06-49a0-a7f0-44d0107c2f3f/chat',
     enableStreaming: true,
+    initialMessages: [
+    'Hi there! 👋',
+    "My name is Corey. How can I assist you today?"
+  ],
     i18n: { en: {
       title: 'Chat with ClimaCore',
       subtitle: 'Ask about services, pricing, or booking a visit.',

@@ -511,6 +511,11 @@
   @media (prefers-reduced-motion: reduce){
     *{ scroll-behavior:auto !important; animation:none !important; transition:none !important; }
   }
+  .chat-window p {
+    color: inherit;
+    margin: 0;
+    max-width: none;
+  }
 </style>
 </head>
 <body>
@@ -906,20 +911,19 @@
 </style>
 <script type="module">
   import { createChat } from 'https://cdn.jsdelivr.net/npm/@n8n/chat/dist/chat.bundle.es.js';
-
   createChat({
     webhookUrl: 'https://n8n.naivegeek.xyz/webhook/ccdad245-6a06-49a0-a7f0-44d0107c2f3f/chat',
     enableStreaming: true,
-    i18n: {
-      en: {
-        title: 'Chat with ClimaCore',
-        subtitle: 'Ask about services, pricing, or booking a visit.',
-        footer: '',
-        getStarted: 'Start chat',
-        inputPlaceholder: 'Type your question...',
-        closeButtonTooltip: 'Close chat'
-      }
-    }
+    initialMessages: [
+    'Hi there! 👋',
+    "My name is Corey. How can I assist you today?"
+  ],
+    i18n: { en: {
+      title: 'Chat with ClimaCore',
+      subtitle: 'Ask about services, pricing, or booking a visit.',
+      footer: '', getStarted: 'Start chat',
+      inputPlaceholder: 'Type your question...', closeButtonTooltip: 'Close chat'
+    }}
   });
 </script>
 <footer>

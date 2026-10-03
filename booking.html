@@ -118,6 +118,12 @@
   }
   :focus-visible{ outline:2px solid var(--primary); outline-offset:2px; }
   @media (prefers-reduced-motion:reduce){ *{ scroll-behavior:auto !important; animation:none !important; transition:none !important; } }
+  
+  .chat-window p {
+    color: inherit;
+    margin: 0;
+    max-width: none;
+  }
 </style>
 </head>
 <body>
@@ -244,7 +250,7 @@
 <link href="https://cdn.jsdelivr.net/npm/@n8n/chat/dist/style.css" rel="stylesheet" />
 <style>
   :root{
-    --chat--color-primary:#35594F; --chat--color-primary-shade-50:#2C4B42; --chat--color-primary-shade-100:#233B35;
+    --chat--color-primary:#35594F; --chat--color-primary-shade-50:#ffffff; --chat--color-primary-shade-100:#233B35;
     --chat--color-secondary:#B9722E; --chat--color-secondary-shade-50:#A2611F;
     --chat--color-white:#FFFFFF; --chat--color-light:#FFFFFF; --chat--color-light-shade-50:#F3F5F2; --chat--color-light-shade-100:#E4E9E2;
     --chat--color-medium:#C9D2C6; --chat--color-dark:#263238; --chat--color-disabled:#9AA39C; --chat--color-typing:#5B6660;
@@ -255,7 +261,7 @@
     --chat--textarea--height:46px;
     --chat--message--font-size:.93rem; --chat--message-line-height:1.5; --chat--message--border-radius:10px; --chat--message--padding:.65rem .85rem;
     --chat--message--bot--background:#F3F5F2; --chat--message--bot--color:#263238; --chat--message--bot--border:1px solid #E4E9E2;
-    --chat--message--user--background:#35594F; --chat--message--user--color:#FFFFFF; --chat--message--user--border:none;
+    --chat--message--user--background:#0E5C47; --chat--message--user--color:#FFFFFF; --chat--message--user--border:none;
     --chat--toggle--background:#35594F; --chat--toggle--hover--background:#2C4B42; --chat--toggle--color:#FFFFFF; --chat--toggle--size:56px;
   }
 </style>
@@ -264,6 +270,10 @@
   createChat({
     webhookUrl: 'https://n8n.naivegeek.xyz/webhook/ccdad245-6a06-49a0-a7f0-44d0107c2f3f/chat',
     enableStreaming: true,
+    initialMessages: [
+    'Hi there! 👋',
+    "My name is Corey. How can I assist you today?"
+  ],
     i18n: { en: {
       title: 'Chat with ClimaCore',
       subtitle: 'Ask about services, pricing, or booking a visit.',
