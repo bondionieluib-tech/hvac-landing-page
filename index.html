@@ -478,6 +478,12 @@
   .form-status.is-visible{ opacity: 1; transform: translateY(0); }
   .form-status.is-error{ color: #B14A3F; }
 
+  .area-group{ margin-bottom:22px; }
+  .area-group h4{ font-size:.82rem; font-weight:500; color:var(--ink-soft); margin-bottom:10px; }
+  .area-list{ list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:8px; }
+  .area-list li{ font-size:.86rem; color:var(--ink); background:var(--bg); border:1px solid var(--line); border-radius:var(--radius-sm); padding:6px 12px; }
+  .area-list li.is-hq{ border-color:var(--primary-soft); color:var(--primary); font-weight:500; }
+
   /* ============ Footer ============ */
   footer{
     padding: 40px 0;
@@ -547,7 +553,7 @@
 
     <div class="nav-cta">
       <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Switch to dark theme">🌙</button>
-      <a href="#contact" class="btn btn-ghost">Get a quote</a>
+      <a href="booking.html" class="btn btn-ghost">Get a quote</a>
     </div>
   </nav>
 </header>
@@ -670,7 +676,7 @@
             <li>Lorem ipsum dolor sit</li>
             <li>Lorem ipsum dolor sit</li>
           </ul>
-          <a href="#contact" class="btn btn-ghost">Choose plan</a>
+          <a href="booking.html" class="btn btn-ghost">Choose plan</a>
         </div>
 
         <div class="price-card is-featured">
@@ -683,7 +689,7 @@
             <li>Lorem ipsum dolor sit</li>
             <li>Lorem ipsum dolor sit</li>
           </ul>
-          <a href="#contact" class="btn btn-primary">Choose plan</a>
+          <a href="booking.html" class="btn btn-primary">Choose plan</a>
         </div>
 
         <div class="price-card">
@@ -793,32 +799,35 @@
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Get in touch</span>
-        <h2>Request a quote or ask a question</h2>
+        <h2>Service areas and contact details</h2>
       </div>
 
-      <div class="contact-grid">
-        <form class="contact-form" id="contact-form" novalidate>
-          <div class="two-col">
-            <div class="form-row">
-              <label for="name">Full name</label>
-              <input type="text" id="name" name="name" placeholder="Jane Dela Cruz" required>
-            </div>
-            <div class="form-row">
-              <label for="phone">Phone number</label>
-              <input type="tel" id="phone" name="phone" placeholder="+63 900 000 0000">
-            </div>
-          </div>
-          <div class="form-row">
-            <label for="email">Email address</label>
-            <input type="email" id="email" name="email" placeholder="jane@email.com" required>
-          </div>
-          <div class="form-row">
-            <label for="message">Message</label>
-            <textarea id="message" name="message" placeholder="Lorem ipsum dolor sit amet..." required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Send message</button>
-          <p class="form-status" id="contact-form-status" role="status" aria-live="polite"></p>
-        </form>
+  <div class="contact-form service-areas">
+  <h3>Service areas</h3>
+  <p>We serve homes and businesses across California and neighboring regions. Not sure if you're covered? Start a booking and we'll confirm.</p>
+
+  <div class="area-group">
+    <h4>Home base and neighboring states</h4>
+    <ul class="area-list">
+      <li class="is-hq">California</li>
+      <li>Oregon</li>
+      <li>Nevada</li>
+      <li>Arizona</li>
+    </ul>
+  </div>
+
+  <div class="area-group">
+    <h4>Western and central states</h4>
+    <ul class="area-list">
+      <li>Washington</li><li>Idaho</li><li>Utah</li><li>New Mexico</li>
+      <li>Colorado</li><li>Wyoming</li><li>Montana</li><li>Texas</li>
+      <li>Oklahoma</li><li>Kansas</li><li>Nebraska</li><li>South Dakota</li>
+      <li>North Dakota</li><li>Arkansas</li><li>Louisiana</li><li>Hawaii</li>
+    </ul>
+  </div>
+
+  <a href="booking.html" class="btn btn-primary">Book a service</a>
+</div>
 
         <div class="company-info">
           <h3>Company info</h3>
