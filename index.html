@@ -1025,56 +1025,6 @@
     });
   });
 
-  /* ---------- Contact form submission ---------- */
-  var contactForm = document.getElementById('contact-form');
-  if (contactForm){
-    contactForm.addEventListener('submit', function(e){
-      e.preventDefault();
-
-      var nameEl = document.getElementById('name');
-      var phoneEl = document.getElementById('phone');
-      var emailEl = document.getElementById('email');
-      var messageEl = document.getElementById('message');
-      var statusEl = document.getElementById('contact-form-status');
-
-      var name = nameEl.value.trim();
-      var phone = phoneEl.value.trim();
-      var email = emailEl.value.trim();
-      var message = messageEl.value.trim();
-
-      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-      if (!name || !email || !message){
-        setStatus(statusEl, 'Please fill in your name, email, and message.', true);
-        return;
-      }
-      if (!emailPattern.test(email)){
-        setStatus(statusEl, 'Please enter a valid email address.', true);
-        return;
-      }
-
-      var entry = {
-        id: Date.now(),
-        submittedAt: new Date().toISOString(),
-        name: name,
-        phone: phone,
-        email: email,
-        message: message
-      };
-
-      var submissions = readList('climacore_contact_submissions');
-      submissions.push(entry);
-      writeList('climacore_contact_submissions', submissions);
-
-      // Organized log for now — swap this for a real backend/webhook call later.
-      console.log('New contact submission:', entry);
-      console.table(submissions);
-
-      setStatus(statusEl, 'Thanks, ' + name.split(' ')[0] + ' — we\u2019ll be in touch shortly.', false);
-      contactForm.reset();
-    });
-  }
-
   /* ---------- Email subscribe submission ---------- */
   var subscribeForm = document.getElementById('subscribe-form');
   if (subscribeForm){
