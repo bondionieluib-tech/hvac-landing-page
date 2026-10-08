@@ -175,7 +175,7 @@
           </div>
           <div class="form-row">
             <label for="b-phone">Phone number</label>
-            <input type="tel" id="b-phone" name="phone" placeholder="+63 900 000 0000" required>
+            <input type="tel" id="b-phone" name="phone" placeholder="(619) 555-0123" required>
           </div>
         </div>
 
@@ -184,15 +184,33 @@
           <input type="email" id="b-email" name="email" placeholder="jane@email.com" required>
         </div>
 
-        <div class="two-col">
+                <div class="two-col">
           <div class="form-row">
             <label for="b-date">Date of appointment</label>
             <input type="date" id="b-date" name="date" required>
           </div>
           <div class="form-row">
-            <label for="b-service">Type of service</label>
-            <select id="b-service" name="service" required>
-              <option value="" disabled selected>Select a service</option>
+            <label for="b-time">Time of appointment (PT)</label>
+            <select id="b-time" name="time" required>
+              <option value="" disabled selected>Select a time</option>
+              <option value="08:00">8:00 AM</option>
+              <option value="09:00">9:00 AM</option>
+              <option value="10:00">10:00 AM</option>
+              <option value="11:00">11:00 AM</option>
+              <option value="12:00">12:00 PM</option>
+              <option value="13:00">1:00 PM</option>
+              <option value="14:00">2:00 PM</option>
+              <option value="15:00">3:00 PM</option>
+              <option value="16:00">4:00 PM</option>
+              <option value="17:00">5:00 PM</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="b-service">Type of service</label>
+          <select id="b-service" name="service" required>
+            <option value="" disabled selected>Select a service</option>
               <option>Installation</option>
               <option>Repair</option>
               <option>Maintenance of Cooling &amp; Heating Systems</option>
@@ -204,8 +222,7 @@
               <option>Smart Home Integrations</option>
               <option>HVAC-as-a-Service</option>
               <option>Other / not sure</option>
-            </select>
-          </div>
+          </select>
         </div>
 
         <div class="form-row">
@@ -327,12 +344,31 @@
       try { localStorage.setItem('climacore_theme', next); } catch (e) {}
     });
   }
-
-  /* Prevent picking a past date */
+  /* Date and time rules */
   var dateInput = document.getElementById('b-date');
-  if (dateInput){
-    var today = new Date().toISOString().split('T')[0];
-    dateInput.setAttribute('min', today);
+  var timeInput = document.getElementById('b-time');
+  var nowLocal = ptNow();
+  var todayIso = nowLocal.getFullYear() + '-' +
+                 String(nowLocal.getMonth() + 1).padStart(2, '0') + '-' +
+                 String(nowLocal.getDate()).padStart(2, '0');
+
+  function isSunday(value){
+    return new Date(value + 'T00:00:00').getDay() === 0;
+  }
+  function ptNow(){
+  return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+  }
+
+  if (dateInput && timeInput){
+    dateInput.setAttribute('min', todayIso);
+    dateInput.addEventListener('change', function(){
+      var now = ptNow();
+      Array.prototype.forEach.call(timeInput.options, function(opt){
+        if (!opt.value) return;
+        opt.disabled = (dateInput.value === todayIso && parseInt(opt.value, 10) <= now.getHours());
+      });
+      if (timeInput.selectedOptions[0] && timeInput.selectedOptions[0].disabled) timeInput.value = '';
+    });
   }
 
   /* Booking form submission */
@@ -352,6 +388,7 @@
       var phone = document.getElementById('b-phone').value.trim();
       var email = document.getElementById('b-email').value.trim();
       var date = document.getElementById('b-date').value;
+      var time = document.getElementById('b-time').value;
       var service = document.getElementById('b-service').value;
       var notes = document.getElementById('b-notes').value.trim();
       var enrollRadio = document.querySelector('input[name="enroll-plan"]:checked');
@@ -359,7 +396,7 @@
       var statusEl = document.getElementById('booking-form-status');
       var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-      if (!name || !phone || !email || !date || !service || !enrollPlan){
+      if (!name || !phone || !email || !date || !time || !service || !enrollPlan){
         setStatus(statusEl, 'Please fill in all required fields.', true);
         return;
       }
@@ -367,6 +404,11 @@
         setStatus(statusEl, 'Please enter a valid email address.', true);
         return;
       }
+      if (isSunday(date)){
+        setStatus(statusEl, 'We are closed on Sundays. Please choose Monday to Saturday.', true);
+        return;
+      }
+      if (date < todayIso){ setStatus(statusEl, 'Please choose a future date.', true); return; }
 
       var entry = {
         id: Date.now(),
@@ -375,6 +417,7 @@
         phone: phone,
         email: email,
         date: date,
+        time: time,
         service: service,
         notes: notes,
         enrollPlan: enrollPlan
