@@ -218,14 +218,24 @@
   }
   .hero-stats div span{ font-size: .82rem; color: var(--ink-soft); }
 
-  .hero-art{
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: var(--radius-md);
-    padding: 32px;
-    box-shadow: var(--shadow);
-  }
-
+  .hero-art {
+  padding: 12px;
+  overflow: hidden;
+}
+.hero-art .img-placeholder {
+  padding: 0;
+  border: none;
+  background: transparent;
+  min-height: 340px;
+  overflow: hidden;
+}
+.hero-art .img-placeholder img {
+  display: block;
+  width: 100%;
+  height: 340px;
+  object-fit: cover;
+  border-radius: 10px;
+}
   /* ============ Placeholder blocks ============ */
   .img-placeholder{
     display:flex;
@@ -578,8 +588,8 @@
         </div>
       </div>
       <div class="hero-art">
-        <div class="img-placeholder" style="min-height:340px;">
-          Hero image placeholder<br>(e.g. technician / system photo)
+        <div class="img-placeholder">
+          <img src="technician.png" alt="ClimaCore HVAC technician servicing an air conditioning unit" />
         </div>
       </div>
     </div>
