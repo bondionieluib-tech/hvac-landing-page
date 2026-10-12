@@ -400,11 +400,6 @@
   function ptNow(){
   return new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
   }
-  if (!/^\d{5}$/.test(zip)){
-        setStatus(statusEl, 'Please enter a valid 5-digit ZIP code.', true);
-        return;
-  }
-
   if (dateInput && timeInput){
     dateInput.setAttribute('min', todayIso);
     dateInput.addEventListener('change', function(){
@@ -459,6 +454,11 @@
         return;
       }
       if (date < todayIso){ setStatus(statusEl, 'Please choose a future date.', true); return; }
+
+      if (!/^\d{5}$/.test(zip)){
+        setStatus(statusEl, 'Please enter a valid 5-digit ZIP code.', true);
+        return;
+      }
 
       var entry = {
         id: Date.now(),
