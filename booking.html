@@ -455,10 +455,10 @@
       }
       if (date < todayIso){ setStatus(statusEl, 'Please choose a future date.', true); return; }
 
-      if (!/^\d{5}$/.test(zip)){
-        setStatus(statusEl, 'Please enter a valid 5-digit ZIP code.', true);
-        return;
-      }
+      //if (!/^\d{5}$/.test(zip)){
+      //  setStatus(statusEl, 'Please enter a valid 5-digit ZIP code.', true);
+      //  return;
+      //}
 
       var entry = {
         id: Date.now(),
