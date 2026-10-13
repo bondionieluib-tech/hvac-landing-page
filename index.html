@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="32x32" href="./assets/images/logo.png">
+<link rel="apple-touch-icon" href="./assets/images/logo.png">
 <style>
   /* ============ Tokens ============ */
   :root{
@@ -129,7 +131,7 @@
     margin: 0 auto;
   }
   .brand{ display:flex; align-items:center; gap:10px; text-decoration:none; }
-  .brand-mark{ width:34px; height:34px; flex-shrink:0; }
+  .brand-mark{ width:auto; height:34px; flex-shrink:0; }
   .brand-name{
     font-family: var(--font-head);
     font-weight: 700;
@@ -347,6 +349,16 @@
     margin-top: 7px;
     flex-shrink:0;
   }
+  .plan-layout{ display:grid; grid-template-columns:.9fr 1.1fr; gap:48px; align-items:start; }
+  .plan-layout .price-card{ order:-1; }
+  .plan-details{ display:grid; gap:22px; }
+  .plan-details h3{ font-size:1.05rem; margin:0; }
+  .plan-item h4{ font-size:.98rem; margin-bottom:.25em; }
+  .plan-item p{ font-size:.92rem; margin:0; }
+  @media (max-width:900px){
+    .plan-layout{ grid-template-columns:1fr; }
+    .plan-layout .price-card{ order:0; }
+  }
 
   /* ============ Testimonials ============ */
   .testimonials{ background: var(--bg-alt); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
@@ -384,6 +396,15 @@
   }
   .testi-person strong{ display:block; font-size: .9rem; }
   .testi-person span{ font-size: .8rem; color: var(--ink-soft); }
+
+  .testi-scroller{ display:flex; gap:24px; overflow-x:auto; scroll-snap-type:x mandatory; padding:4px 2px 18px; scrollbar-width:thin; scrollbar-color:var(--line) transparent;}
+  .testi-scroller .testi-card{ flex:0 0 min(380px, 85%); scroll-snap-align:start; display:flex; flex-direction:column; }
+  .testi-scroller .testi-person{ margin-top:auto; padding-top:18px; }
+  .testi-stars{ color:var(--accent); letter-spacing:2px; font-size:1.05rem; margin-bottom:10px; }
+  .testi-controls{ display:flex; justify-content:flex-end; gap:10px; margin-top:8px; }
+  .testi-btn{ width:40px; height:40px; border-radius:50%; border:1px solid var(--line); background:var(--surface); color:var(--ink); font-size:1.1rem; cursor:pointer; }
+  .testi-btn:hover{ border-color:var(--primary-soft); }
+  .testi-note{ font-size:.8rem; margin:12px 0 0; }
 
   /* ============ FAQ ============ */
   .faq-list{
@@ -539,14 +560,10 @@
 
 <header>
   <nav class="nav">
-    <a href="#top" class="brand">
-      <svg class="brand-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="19" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M20 8 V20 L28 24" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="20" cy="20" r="3" fill="var(--primary)"/>
-      </svg>
-      <span class="brand-name">ClimaCore Systems</span>
-    </a>
+      <a href="index.html" class="brand">
+        <img class="brand-mark" src="./assets/images/logo.png" alt="">
+        <span class="brand-name">ClimaCore Systems</span>
+      </a>
 
     <input type="checkbox" id="nav-toggle" class="nav-toggle">
     <label for="nav-toggle" class="nav-toggle-label" aria-label="Toggle menu">
@@ -669,52 +686,54 @@
   </section>
 
   <!-- PRICING -->
+    <!-- PRICING -->
+    <!-- PRICING -->
   <section class="pricing" id="pricing">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Plans</span>
-        <h2>Straightforward pricing for every home</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+        <span class="eyebrow">Maintenance plan</span>
+        <h2>One plan. A full year of comfort.</h2>
+        <p>Our annual plan covers seasonal tune-ups and priority service, so small issues get caught before they turn into costly repairs.</p>
       </div>
 
-      <div class="pricing-grid">
-        <div class="price-card">
-          <span class="price-tier-label">Basic</span>
-          <div class="price-amount">$00<span>/visit</span></div>
-          <p class="price-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <ul class="price-feat">
-            <li>Lorem ipsum dolor sit</li>
-            <li>Lorem ipsum dolor sit</li>
-            <li>Lorem ipsum dolor sit</li>
-          </ul>
-          <a href="booking.html" class="btn btn-ghost">Choose plan</a>
+      <div class="plan-layout">
+        <div class="plan-details">
+          <h3>What's included</h3>
+
+          <div class="plan-item">
+            <h4>Two seasonal tune-ups</h4>
+            <p>One visit before cooling season and one before heating season, so your system is ready when you need it most.</p>
+          </div>
+          <div class="plan-item">
+            <h4>Filter and coil cleaning</h4>
+            <p>Clean filters and coils keep airflow strong, lower energy use, and reduce strain on your equipment.</p>
+          </div>
+          <div class="plan-item">
+            <h4>Performance and safety check</h4>
+            <p>We check how your system is running and review key safety points, then tell you plainly if anything needs attention.</p>
+          </div>
+          <div class="plan-item">
+            <h4>Priority scheduling</h4>
+            <p>Plan members are booked ahead of standard requests, so you wait less when something goes wrong.</p>
+          </div>
+          <div class="plan-item">
+            <h4>Visit reminders</h4>
+            <p>We remind you before every visit, so nothing slips through the cracks.</p>
+          </div>
         </div>
 
         <div class="price-card is-featured">
-          <span class="price-tier-label">Standard</span>
-          <div class="price-amount">$00<span>/mo</span></div>
-          <p class="price-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <span class="price-tier-label">Annual Maintenance Plan</span>
+          <div class="price-amount">$199<span>/year</span></div>
+          <p class="price-desc">Everything your system needs, all year round.</p>
           <ul class="price-feat">
-            <li>Lorem ipsum dolor sit</li>
-            <li>Lorem ipsum dolor sit</li>
-            <li>Lorem ipsum dolor sit</li>
-            <li>Lorem ipsum dolor sit</li>
+            <li>2 seasonal tune-ups</li>
+            <li>Filter and coil cleaning</li>
+            <li>Performance and safety check</li>
+            <li>Priority scheduling</li>
+            <li>Visit reminders</li>
           </ul>
           <a href="booking.html" class="btn btn-primary">Choose plan</a>
-        </div>
-
-        <div class="price-card">
-          <span class="price-tier-label">Premium</span>
-          <div class="price-amount">$00<span>/mo</span></div>
-          <p class="price-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-          <ul class="price-feat">
-            <li>Lorem ipsum dolor sit</li>
-            <li>Lorem ipsum dolor sit</li>
-            <li>Lorem ipsum dolor sit</li>
-            <li>Lorem ipsum dolor sit</li>
-            <li>Lorem ipsum dolor sit</li>
-          </ul>
-          <a href="#contact" class="btn btn-ghost">Choose plan</a>
         </div>
       </div>
     </div>
@@ -728,31 +747,69 @@
         <h2>Trusted by homeowners and businesses alike</h2>
       </div>
 
-      <div class="testi-grid">
-        <div class="testi-card">
-          <span class="testi-quote-mark">&ldquo;</span>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <div class="testi-person">
-            <div class="testi-avatar"></div>
-            <div>
-              <strong>Full Name</strong>
-              <span>Role, Company</span>
-            </div>
-          </div>
-        </div>
+      <div class="testi-scroller" id="testi-scroller" tabindex="0" aria-label="Customer testimonials">
 
-        <div class="testi-card">
-          <span class="testi-quote-mark">&ldquo;</span>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <article class="testi-card">
+          <div class="testi-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+          <p>Our AC stopped on a Saturday morning and a technician was at the door that afternoon. He explained the problem plainly and fixed it without any upselling.</p>
           <div class="testi-person">
             <div class="testi-avatar"></div>
-            <div>
-              <strong>Full Name</strong>
-              <span>Role, Company</span>
-            </div>
+            <div><strong>Maria T.</strong><span>San Diego, CA</span></div>
           </div>
-        </div>
+        </article>
+
+        <article class="testi-card">
+          <div class="testi-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+          <p>They sized our new system properly and tested it before leaving. The house has never been this evenly cooled.</p>
+          <div class="testi-person">
+            <div class="testi-avatar"></div>
+            <div><strong>Daniel R.</strong><span>Phoenix, AZ</span></div>
+          </div>
+        </article>
+
+        <article class="testi-card">
+          <div class="testi-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+          <p>Booking online took two minutes, and the reminder email the day before was a nice touch. The technician arrived right on time.</p>
+          <div class="testi-person">
+            <div class="testi-avatar"></div>
+            <div><strong>Priya S.</strong><span>Las Vegas, NV</span></div>
+          </div>
+        </article>
+
+        <article class="testi-card">
+          <div class="testi-stars" role="img" aria-label="4 out of 5 stars">★★★★☆</div>
+          <p>Duct cleaning made a real difference in the dust around the house. Fair price and clean work, with no mess left behind.</p>
+          <div class="testi-person">
+            <div class="testi-avatar"></div>
+            <div><strong>Kevin L.</strong><span>Portland, OR</span></div>
+          </div>
+        </article>
+
+        <article class="testi-card">
+          <div class="testi-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+          <p>We signed up for the annual maintenance plan after the first visit. Two tune-ups a year and no surprise bills so far.</p>
+          <div class="testi-person">
+            <div class="testi-avatar"></div>
+            <div><strong>Angela M.</strong><span>Denver, CO</span></div>
+          </div>
+        </article>
+
+        <article class="testi-card">
+          <div class="testi-stars" role="img" aria-label="5 out of 5 stars">★★★★★</div>
+          <p>Honest advice on repair versus replace. They told us the old unit had years left, and that saved us a lot of money.</p>
+          <div class="testi-person">
+            <div class="testi-avatar"></div>
+            <div><strong>Marcus B.</strong><span>Austin, TX</span></div>
+          </div>
+        </article>
+
       </div>
+
+      <div class="testi-controls">
+        <button type="button" class="testi-btn" id="testi-prev" aria-label="Previous testimonials">&larr;</button>
+        <button type="button" class="testi-btn" id="testi-next" aria-label="Next testimonials">&rarr;</button>
+      </div>
+      <p class="testi-note">Sample reviews for this demo site.</p>
     </div>
   </section>
 
@@ -949,11 +1006,7 @@
 <footer>
   <div class="container footer-row">
     <a href="#top" class="brand">
-      <svg class="brand-mark" width="26" height="26" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="20" cy="20" r="19" stroke="var(--primary)" stroke-width="2"/>
-        <path d="M20 8 V20 L28 24" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
-        <circle cx="20" cy="20" r="3" fill="var(--primary)"/>
-      </svg>
+      <img class="brand-mark" src="./assets/images/logo.png" alt="" style="height:26px;">
       <span class="brand-name" style="font-size:.95rem;">ClimaCore Systems</span>
     </a>
     <ul class="footer-links">
@@ -1071,6 +1124,20 @@
 
       setStatus(statusEl, 'You\u2019re subscribed \u2014 thanks!', false);
       subscribeForm.reset();
+    });
+  }
+    /* Testimonials scroller buttons */
+  var testiScroller = document.getElementById('testi-scroller');
+  if (testiScroller){
+    var testiStep = function(){
+      var card = testiScroller.querySelector('.testi-card');
+      return card ? card.offsetWidth + 24 : 300;
+    };
+    document.getElementById('testi-prev').addEventListener('click', function(){
+      testiScroller.scrollBy({ left: -testiStep(), behavior: 'smooth' });
+    });
+    document.getElementById('testi-next').addEventListener('click', function(){
+      testiScroller.scrollBy({ left: testiStep(), behavior: 'smooth' });
     });
   }
 })();
